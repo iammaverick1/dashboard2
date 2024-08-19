@@ -4,15 +4,6 @@ import PageTitle from "@/components/PageTitle";
 import { ColumnDef } from "@tanstack/react-table";
 import React from "react";
 
-export default function UsersPage() {
-  return (
-    <div className="flex flex-col gap-5 w-full">
-      <PageTitle title="users" />
-      <DataTable columns={columns} data={data} />
-    </div>
-  );
-}
-
 type Payment = {
   name: string;
   email: string;
@@ -20,20 +11,20 @@ type Payment = {
   method: string;
 };
 
-export const columns: ColumnDef<Payment>[] = [
+const columns: ColumnDef<Payment>[] = [
   {
     accessorKey: "name",
     header: "Name",
     cell: ({ row }) => {
       return (
         <div className="flex gap-2 items-center">
-          {" "}
           <img
             className="h-10 w-10"
             src={`https://api.dicebear.com/7.x/lorelei/svg?seed=${row.getValue(
               "name"
             )}`}
-            alt="user-image"
+            loading="lazy"
+            alt="Lazy-loaded image"
           />
           <p>{row.getValue("name")}</p>
         </div>
@@ -54,7 +45,7 @@ export const columns: ColumnDef<Payment>[] = [
   },
 ];
 
-export const data: Payment[] = [
+const data: Payment[] = [
   {
     name: "John Doe",
     email: "john@example.com",
@@ -124,3 +115,12 @@ export const data: Payment[] = [
   },
   // ...
 ];
+
+export default function UsersPage() {
+  return (
+    <div className="flex flex-col gap-5 w-full">
+      <PageTitle title="users" />
+      <DataTable columns={columns} data={data} />
+    </div>
+  );
+}

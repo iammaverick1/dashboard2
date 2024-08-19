@@ -5,20 +5,11 @@ import { cn } from "@/lib/utils";
 import { ColumnDef } from "@tanstack/react-table";
 import React from "react";
 
-export default function SettingsPage() {
-  return (
-    <div className="flex flex-col gap-5 w-full">
-      <PageTitle title="Settings" />
-      <DataTable columns={columns} data={data} />
-    </div>
-  );
-}
-
-export interface Settings {
+interface Settings {
   category: string;
   value: string | number | boolean;
 }
-export const columns: ColumnDef<Settings>[] = [
+const columns: ColumnDef<Settings>[] = [
   {
     accessorKey: "category",
     header: "Category",
@@ -29,7 +20,7 @@ export const columns: ColumnDef<Settings>[] = [
   },
 ];
 
-export const data: Settings[] = [
+const data: Settings[] = [
   {
     category: "Account",
     value: true,
@@ -50,3 +41,12 @@ export const data: Settings[] = [
 
   // ...
 ];
+
+export default function SettingsPage() {
+  return (
+    <div className="flex flex-col gap-5 w-full">
+      <PageTitle title="Settings" />
+      <DataTable columns={columns} data={data} />
+    </div>
+  );
+}
