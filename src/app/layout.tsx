@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { cn } from "@/lib/utils";
+import SideNavbar from "@/components/sideNavbar";
+import { ThemeProvider } from "@/components/theme-provider";
+import Navbar from "@/components/Navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,8 +19,32 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <html lang="en" suppressHydrationWarning>
+      <body
+        className={cn(
+          "min-h-screen w-full bg-white text-black flex",
+          inter.className,
+          { "debug-screens": process.env.NODE_ENV === "development" }
+        )}
+      >
+        {/* sidebar */}
+        {/* <p className="border">Sidebar</p> */}
+        <SideNavbar />
+
+        {/* main page */}
+
+        <div className="p-8 w-full">
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <Navbar />
+            {children}
+          </ThemeProvider>
+        </div>
+      </body>
     </html>
   );
 }
